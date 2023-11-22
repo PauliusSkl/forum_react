@@ -1,0 +1,8 @@
+.main {
+  flex: 1;
+  background-color: #f4f5fa;
+  padding: 10px 40px;
+  flex-grow: 1;
+  padding-left: 240px;
+  min-height: 100vh;
+}
