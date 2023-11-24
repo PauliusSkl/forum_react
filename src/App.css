@@ -158,3 +158,8 @@ body {
     transform: rotate(360deg);
   }
 }
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+}

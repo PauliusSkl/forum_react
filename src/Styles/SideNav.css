@@ -94,7 +94,67 @@
 .sidenav_subreddit::-webkit-scrollbar-corner {
   background-color: transparent;
 }
-/* ------------------------------------ */
 .sidenav_subreddit li.highlighted {
   color: #fd4500;
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    width: 100%;
+    font-size: large;
+    box-shadow: 2px 0px 1px 1px #f4f5fa;
+    border: 0px solid;
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    background-color: white;
+    display: none;
+  }
+  .main {
+    padding-left: 10px;
+  }
+  .sidenav_search > i {
+    right: 22%;
+    top: 30%;
+    position: absolute;
+  }
+
+  .sidenav_search {
+    margin: 1em 0;
+  }
+
+  .sidenav_search > input {
+    width: 80%;
+  }
+
+  .sidenav_logo > img {
+    width: 40%;
+  }
+
+  .sidenav_subreddit {
+    max-height: none;
+  }
+  .sidenav.show {
+    display: block;
+  }
+  .toggle-button {
+    display: block;
+    position: fixed;
+    top: 55px;
+    left: 10px;
+    z-index: 999;
+    background-color: transparent;
+    border: none;
+    border-radius: 60%;
+    font-size: 1.5rem;
+    color: #464855;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    height: 30px;
+    width: 30px;
+  }
+  .toggle-button:hover {
+    background-color: #f4f5fa;
+  }
 }

@@ -29,11 +29,6 @@ const PostItem = (props) => {
 
   return (
     <div className="post">
-      <div className="post_left">
-        <i className="fas fa-caret-up"></i>
-        <span>500</span>
-        <i className="fas fa-caret-down"></i>
-      </div>
       <div className="post_center">
         <img src={placeholderImage} alt="" />
       </div>

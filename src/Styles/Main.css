@@ -3,6 +3,13 @@
   background-color: #f4f5fa;
   padding: 10px 40px;
   flex-grow: 1;
-  padding-left: 240px;
+  padding-left: 230px;
   min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }

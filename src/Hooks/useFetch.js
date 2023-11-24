@@ -7,9 +7,8 @@ const useFetch = (url) => {
   const pageSize = 50;
 
   useEffect(() => {
-    const abortCont = new AbortController();
     setLoading(true);
-    fetch(`${url}?pageSize=${pageSize}`, { signal: abortCont.signal })
+    fetch(`${url}?pageSize=${pageSize}`)
       .then((response) => {
         if (!response.ok) {
           if (response.status === 404) {
@@ -26,14 +25,9 @@ const useFetch = (url) => {
         setError(null);
       })
       .catch((error) => {
-        if (error.name === "AbortError") {
-          console.log("Fetch aborted");
-        } else {
-          setError(error.message);
-          setLoading(false);
-        }
+        setError(error.message);
+        setLoading(false);
       });
-    return () => abortCont.abort();
   }, [url]);
 
   return { data, loading, error };

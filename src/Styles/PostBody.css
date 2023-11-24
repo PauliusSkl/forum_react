@@ -4,3 +4,7 @@
   border-radius: 5px;
   box-shadow: -1px 0px 5px 5px #f4f5fa;
 }
+
+hr {
+  border: 1px solid #f4f5fa;
+}

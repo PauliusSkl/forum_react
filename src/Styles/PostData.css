@@ -1,0 +1,55 @@
+h1 {
+  color: #464855;
+}
+p {
+  color: #808080;
+}
+.postData {
+  padding: 16px;
+  background-color: #f4f5fa;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.topicInfo {
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.topicLink {
+  color: #464855;
+  text-decoration: none;
+}
+
+.topicLink:hover {
+  text-decoration: underline;
+}
+
+.postedTime {
+  margin-left: 8px;
+  color: #808080;
+}
+
+.postData h1 {
+  margin-bottom: 8px;
+  font-size: 24px;
+}
+
+.postData p {
+  color: #464855;
+}
+
+.iconContainer {
+  margin-top: 16px;
+  font-size: 18px;
+}
+
+.iconContainer i {
+  margin-right: 16px;
+  cursor: pointer;
+  color: #808080;
+}
+
+.iconContainer i:hover {
+  color: #fd4500;
+}

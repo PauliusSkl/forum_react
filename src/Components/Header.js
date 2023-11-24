@@ -75,7 +75,6 @@ const Header = ({ openLogin, openRegister }) => {
       <div className="header_right">
         {user ? (
           <>
-            <i className="fas fa-bell"></i>
             <img src={avatar} alt="" />
             <div className="header_user" onClick={handleDropdownClick}>
               <span>{user.name}</span>
