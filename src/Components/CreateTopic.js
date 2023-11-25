@@ -28,9 +28,6 @@ const CreateTopic = ({ open, onClose, onChange }) => {
       if (!response.ok) {
         const errorData = await response.text();
         setError(errorData);
-      } else {
-        const data = await response.json();
-        console.log("API Response:", data);
       }
       onChange();
       onClose();

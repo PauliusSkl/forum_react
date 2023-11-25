@@ -22,7 +22,10 @@ function App() {
               path="/topics/:id"
               element={<PostPage onChange={reset} />}
             ></Route>
-            <Route path="/topics/:id/posts/:pid" element={<PostBody />}></Route>
+            <Route
+              path="/topics/:id/posts/:pid"
+              element={<PostBody onChange={reset} />}
+            ></Route>
           </Routes>
         </div>
       </div>

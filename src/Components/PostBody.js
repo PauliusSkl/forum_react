@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import PostData from "./PostData";
 import useFetch from "../Hooks/useFetch";
-const PostBody = () => {
+const PostBody = ({ onChange }) => {
   const { id, pid } = useParams();
   const [seed, setSeed] = useState(1);
   const reset = () => {
@@ -32,7 +32,7 @@ const PostBody = () => {
 
   return (
     <div className="main">
-      <HeaderWithFunctionality />
+      <HeaderWithFunctionality onChange={onChange} />
       <div className="postBody">
         {error && <div>{error}</div>}
         {errorTopic && <div>{errorTopic}</div>}
