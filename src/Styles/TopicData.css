@@ -1,0 +1,28 @@
+.topicData {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f4f5fa;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.postData p {
+  color: #464855;
+}
+
+.iconContainer {
+  margin-left: auto;
+  font-size: 18px;
+  display: flex;
+}
+
+.iconContainer i {
+  margin-right: 16px;
+  cursor: pointer;
+  color: #808080;
+}
+
+.iconContainer i:hover {
+  color: #fd4500;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import "../Styles/Register.css";
+import "../Styles/Login.css";
 
 const Register = ({ open, onClose }) => {
   const [username, setUsername] = useState("");
@@ -51,42 +51,36 @@ const Register = ({ open, onClose }) => {
   return ReactDOM.createPortal(
     <>
       <div className="overlay"></div>
-      <div className="register-modal">
+      <div className="login-modal">
         <i className="fa fa-times close-button" onClick={onClose}></i>
         <h2>Register</h2>
         <form onSubmit={handleRegister}>
           <div className="input-group">
-            <label>
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </label>
+            <label>Username:</label>
+            <input
+              type="text"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
           <div className="input-group">
-            <label>
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="input-group">
-            <label>
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
+            <label>Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           {error && <div className="error-message">{error}</div>}
           <button type="submit">Register</button>

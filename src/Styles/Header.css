@@ -91,6 +91,7 @@
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   right: 10px;
+  top: 30px;
 }
 
 .dropdown-content button {
@@ -109,6 +110,6 @@
   background-color: #ddd;
 }
 
-.header_user:hover .dropdown-content {
+.dropdown-content {
   display: block;
 }

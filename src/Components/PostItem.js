@@ -1,6 +1,7 @@
 import placeholderImage from "../images/placeholder-image.png";
 import "../Styles/PostItem.css";
 import { Link } from "react-router-dom";
+import { handleDelete } from "../Utils/Delete";
 const PostItem = (props) => {
   const idTopic = props.topic.id;
   const nameTopic = props.topic.name;
@@ -40,7 +41,21 @@ const PostItem = (props) => {
           submitted {calculateTimeDifference(creationDate)} to{" "}
           <Link to={`/topics/${idTopic}`}> {nameTopic}</Link>
         </span>
-        <p className="post_info"> edit | delete</p>
+        <div className="post_info">
+          <span className="edit">edit |</span>
+          <span
+            className="delete"
+            onClick={() => {
+              handleDelete(
+                `https://walrus-app-2r2tj.ondigitalocean.app/api/topics/${idTopic}/posts/`,
+                id,
+                `/topics/${idTopic}`
+              );
+            }}
+          >
+            delete
+          </span>
+        </div>
       </div>
     </div>
   );

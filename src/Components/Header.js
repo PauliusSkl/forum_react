@@ -5,11 +5,12 @@ import "../Styles/Header.css";
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 
-const Header = ({ openLogin, openRegister }) => {
+const Header = ({ openLogin, openRegister, openCreateTopic }) => {
   const location = useLocation();
   const accessToken = localStorage.getItem("accessToken");
   const [user, setUser] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   const addFilterToUrl = (filter) => {
     const currentPath = location.pathname;
     const currentSearch = location.search;
@@ -83,6 +84,9 @@ const Header = ({ openLogin, openRegister }) => {
               ></i>
               {isDropdownOpen && (
                 <div className="dropdown-content">
+                  <button className="sign-out-btn" onClick={openCreateTopic}>
+                    Create Topic
+                  </button>
                   <button className="sign-out-btn" onClick={handleSignOut}>
                     Sign Out
                   </button>

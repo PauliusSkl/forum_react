@@ -2,10 +2,10 @@ import Posts from "./Posts";
 import "../Styles/Main.css";
 import HeaderWithFunctionality from "./HeaderWithFunctionality";
 
-const MainPage = () => {
+const MainPage = ({ onChange }) => {
   return (
     <div className="main">
-      <HeaderWithFunctionality />
+      <HeaderWithFunctionality onChange={onChange} />
       <Posts />
     </div>
   );

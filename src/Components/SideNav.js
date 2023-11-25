@@ -16,7 +16,7 @@ const SideNav = () => {
     data: topics,
     error,
     loading,
-  } = useFetch("https://walrus-app-2r2tj.ondigitalocean.app/api/topics/");
+  } = useFetch("https://walrus-app-2r2tj.ondigitalocean.app/api/topics");
 
   const handleTopicClick = (topicId) => {
     setSelectedTopic(topicId);
@@ -26,6 +26,7 @@ const SideNav = () => {
     setIsSideNavVisible(!isSideNavVisible);
   };
 
+  const emptyTopic = { id: "empty", name: "" };
   return (
     <>
       <button onClick={toggleSideNavVisibility} className="toggle-button">
@@ -43,7 +44,7 @@ const SideNav = () => {
           <ul className="sidenav_menu">
             {menus.map((menu) => (
               <li key={menu.to}>
-                <a href="/xd">{menu.text}</a>
+                <Link to={`/topics/${menu.to}`}>{menu.text}</Link>
               </li>
             ))}
           </ul>
@@ -54,25 +55,20 @@ const SideNav = () => {
               <div className="loader"></div>
             </div>
           ) : (
-            <>
-              <ul className="sidenav_subreddit">
-                {topics.map((topic) => (
-                  <Link to={`/topics/${topic.id}`} key={topic.id}>
-                    <li
-                      onClick={() => {
-                        handleTopicClick(topic.id);
-                        toggleSideNavVisibility();
-                      }}
-                      className={
-                        selectedTopic === topic.id ? "highlighted" : ""
-                      }
-                    >
-                      {topic.name}
-                    </li>
-                  </Link>
-                ))}
-              </ul>
-            </>
+            <ul className="sidenav_subreddit">
+              {[...topics, emptyTopic].map((topic) => (
+                <li
+                  key={topic.id}
+                  onClick={() => {
+                    handleTopicClick(topic.id);
+                    toggleSideNavVisibility();
+                  }}
+                  className={selectedTopic === topic.id ? "highlighted" : ""}
+                >
+                  <Link to={`/topics/${topic.id}`}>{topic.name}</Link>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </div>

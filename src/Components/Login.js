@@ -57,26 +57,22 @@ const Login = ({ open, onClose }) => {
         <h2>Login</h2>
         <form onSubmit={handleLogin}>
           <div className="input-group">
-            <label>
-              Username:
-              <input
-                type="text"
-                name="userName"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </label>
+            <label>Username:</label>
+            <input
+              type="text"
+              name="userName"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
           </div>
           <div className="input-group">
-            <label>
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
+            <label>Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           {error && <div className="error-message">{error}</div>}
           <button type="submit">Login</button>

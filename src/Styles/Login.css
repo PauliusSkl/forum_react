@@ -24,7 +24,9 @@
 
 .login-modal h2 {
   text-align: center;
-  color: #333;
+  color: #464855;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .close-button {
@@ -46,9 +48,9 @@
 }
 
 .login-modal label {
-  color: #555;
+  color: #808080;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .login-modal input {
@@ -71,6 +73,19 @@
   background-color: #e04400;
 }
 .error-message {
-  color: #d9534f;
+  color: #fd4500;
   padding-bottom: 10px;
+}
+.login-modal input,
+.login-modal textarea {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none;
+  overflow: hidden;
+}
+
+textarea {
+  height: 70px;
 }

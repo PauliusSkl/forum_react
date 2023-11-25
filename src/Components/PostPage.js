@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import useFetch from "../Hooks/useFetch";
 import { useLocation } from "react-router-dom";
 import HeaderWithFunctionality from "./HeaderWithFunctionality";
-
-const PostPage = () => {
+import TopicData from "./TopicData";
+const PostPage = ({ onChange }) => {
   const { id } = useParams();
   const { search } = useLocation();
   const filter = new URLSearchParams(search).get("filter");
@@ -40,9 +40,10 @@ const PostPage = () => {
   );
 
   const filteredPosts = filterPosts(posts, filter);
+
   return (
     <div className="main">
-      <HeaderWithFunctionality />
+      <HeaderWithFunctionality onChange={onChange} />
       {error && <div>{error}</div>}
       {errorTopic && <div>{errorTopic}</div>}
       {loading || loadingTopic ? (
@@ -51,7 +52,17 @@ const PostPage = () => {
         </div>
       ) : (
         <>
-          <Posts data={filteredPosts} topic={topic.resource} />
+          {topic.resource ? ( // Check if topic.resource is defined
+            <>
+              <TopicData
+                description={topic.resource.description}
+                topicId={id}
+              />
+              <Posts data={filteredPosts} topic={topic.resource} />
+            </>
+          ) : (
+            <div>Topic data not available.</div>
+          )}
         </>
       )}
     </div>

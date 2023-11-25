@@ -48,3 +48,19 @@
 p.post_info {
   margin-top: 4px;
 }
+.post_right > .post_info {
+  font-size: smaller;
+  color: #898ea2;
+  display: flex;
+  align-items: center;
+}
+
+.post_right > .post_info > .edit,
+.post_right > .post_info > .delete {
+  margin-right: 10px;
+}
+.post_right > .post_info > .edit:hover,
+.post_right > .post_info > .delete:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
