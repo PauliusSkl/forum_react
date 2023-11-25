@@ -1,12 +1,10 @@
 import "../Styles/Login.css";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { useNavigate } from "react-router-dom";
 const CreatePost = ({ open, onClose, id }) => {
   const [name, setName] = useState("");
   const [body, setBody] = useState("");
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
   const handlePostCreate = async (e) => {
     e.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
