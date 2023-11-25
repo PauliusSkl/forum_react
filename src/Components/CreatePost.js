@@ -29,11 +29,10 @@ const CreatePost = ({ open, onClose, id }) => {
       if (!response.ok) {
         const errorData = await response.text();
         setError(errorData);
-      } else {
-        const data = await response.json();
-        console.log("API Response:", data);
       }
-      window.location.href = "/topics/" + id;
+
+      window.location.reload();
+
       onClose();
     } catch (error) {
       setError(error.message);
