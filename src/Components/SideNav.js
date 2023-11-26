@@ -63,9 +63,15 @@ const SideNav = () => {
                     handleTopicClick(topic.id);
                     toggleSideNavVisibility();
                   }}
-                  className={selectedTopic === topic.id ? "highlighted" : ""}
                 >
-                  <Link to={`/topics/${topic.id}`}>{topic.name}</Link>
+                  <Link
+                    className={selectedTopic === topic.id ? "highlighted" : ""}
+                    to={`/topics/${topic.id}`}
+                  >
+                    {topic.name.length > 15
+                      ? `${topic.name.slice(0, 15)}...`
+                      : topic.name}
+                  </Link>
                 </li>
               ))}
             </ul>

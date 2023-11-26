@@ -94,9 +94,6 @@
 .sidenav_subreddit::-webkit-scrollbar-corner {
   background-color: transparent;
 }
-.sidenav_subreddit li.highlighted {
-  color: #fd4500;
-}
 
 @media (max-width: 768px) {
   .sidenav {
@@ -133,7 +130,8 @@
   }
 
   .sidenav_subreddit {
-    max-height: none;
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
   }
   .sidenav.show {
     display: block;
@@ -157,4 +155,8 @@
   .toggle-button:hover {
     background-color: #f4f5fa;
   }
+}
+
+.sidenav_subreddit a.highlighted {
+  color: #fd4500;
 }
