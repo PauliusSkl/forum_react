@@ -1,4 +1,5 @@
-import placeholderImage from "../images/placeholder-image.png";
+//import placeholderImage from "../images/placeholder-image.png";
+import test from "../images/Test.jpg";
 import "../Styles/PostItem.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,7 +14,7 @@ const PostItem = (props) => {
   const { id, name, creationDate } = props.post;
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const deleted = urlParams.get("deleted");
+    const deleted = urlParams.get("deletedPost");
 
     if (deleted === "true") {
       toast.success("Post deleted!", {
@@ -88,7 +89,7 @@ const PostItem = (props) => {
             autoClose: 2000,
             theme: "light",
           });
-          window.location.href = path + "?deleted=true";
+          window.location.href = path + "?deletedPost=true";
         }
       } catch (error) {
         toast.error("Error deleting", {
@@ -103,14 +104,14 @@ const PostItem = (props) => {
     <>
       <div className="post">
         <div className="post_center">
-          <img src={placeholderImage} alt="" />
+          <img src={test} alt="" />
         </div>
         <div className="post_right">
           <h3>
             <Link to={`/topics/${idTopic}/posts/${id}`}>{name}</Link>
           </h3>
           <span className="post_info">
-            submitted {calculateTimeDifference(creationDate)} to{" "}
+            submitted {calculateTimeDifference(creationDate)} to to&nbsp;
             <Link to={`/topics/${idTopic}`}> {nameTopic}</Link>
           </span>
           <div className="post_info">

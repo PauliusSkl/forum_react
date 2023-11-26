@@ -9,6 +9,9 @@ p {
   background-color: #f4f5fa;
   border-radius: 8px;
   margin-bottom: 16px;
+  width: 70%;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .topicInfo {
@@ -37,6 +40,8 @@ p {
 
 .postData p {
   color: #464855;
+  margin-top: 10px;
+  margin-left: 12%;
 }
 
 .iconContainer {
@@ -52,4 +57,21 @@ p {
 
 .iconContainer i:hover {
   color: #fd4500;
+}
+.postImage {
+  max-width: 80%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+.postHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .postData {
+    width: 100%;
+  }
 }

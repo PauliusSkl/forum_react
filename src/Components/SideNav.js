@@ -4,13 +4,9 @@ import useFetch from "../Hooks/useFetch";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 const SideNav = () => {
-  const [selectedTopic, setSelectedTopic] = useState(null);
+  const [selectedTopic, setSelectedTopic] = useState(-1);
   const [isSideNavVisible, setIsSideNavVisible] = useState(false);
-  const menus = [
-    { to: "55", text: "Popular" },
-    { to: "56", text: "All" },
-    { to: "57", text: "Random" },
-  ];
+  const menus = [{ to: "/", text: "All" }];
 
   const {
     data: topics,
@@ -43,8 +39,19 @@ const SideNav = () => {
         <div className="sidenav_link">
           <ul className="sidenav_menu">
             {menus.map((menu) => (
-              <li key={menu.to}>
-                <Link to={`/topics/${menu.to}`}>{menu.text}</Link>
+              <li
+                onClick={() => {
+                  handleTopicClick(-1);
+                  toggleSideNavVisibility();
+                }}
+                key={menu.to}
+              >
+                <Link
+                  className={selectedTopic === -1 ? "highlighted" : ""}
+                  to={`${menu.to}`}
+                >
+                  {menu.text}
+                </Link>
               </li>
             ))}
           </ul>

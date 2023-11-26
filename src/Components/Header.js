@@ -15,7 +15,7 @@ const Header = ({ openLogin, openRegister, openCreateTopic }) => {
   const addFilterToUrl = (filter) => {
     const currentPath = location.pathname;
     const currentSearch = location.search;
-    const withoutFilter = currentSearch.replace(/(\?|&)filter=[^&]*/, "$1");
+    const withoutFilter = currentSearch.replace(/([?&])filter=[^&]*(&)?/, "$2");
     const newUrl = `${currentPath}${
       withoutFilter ? withoutFilter + "&" : "?"
     }filter=${filter}`;
@@ -62,20 +62,41 @@ const Header = ({ openLogin, openRegister, openCreateTopic }) => {
     e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
+  const getFilterFromUrl = () => {
+    const urlParams = new URLSearchParams(location.search);
+    return urlParams.get("filter");
+  };
   return (
     <div className="header">
       <div className="header_left">
         <ul>
           <li>
-            <Link to={addFilterToUrl("popular")} className="active">
+            <Link
+              to={addFilterToUrl("popular")}
+              className={getFilterFromUrl() === "popular" ? "active" : ""}
+            >
               Popular
             </Link>
           </li>
           <li>
-            <Link to={addFilterToUrl("new")}>New</Link>
+            <Link
+              to={addFilterToUrl("new")}
+              className={
+                !getFilterFromUrl() || getFilterFromUrl() === "new"
+                  ? "active"
+                  : ""
+              }
+            >
+              New
+            </Link>
           </li>
           <li>
-            <Link to={addFilterToUrl("old")}>Old</Link>
+            <Link
+              to={addFilterToUrl("old")}
+              className={getFilterFromUrl() === "old" ? "active" : ""}
+            >
+              Old
+            </Link>
           </li>
         </ul>
       </div>

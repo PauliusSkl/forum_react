@@ -12,7 +12,7 @@ const PostPage = ({ onChange }) => {
   const filterPosts = (posts, filter) => {
     switch (filter) {
       case "popularas":
-        return posts.sort((a, b) => b.commentCount - a.commentCount);
+        return posts;
       case "new":
         return posts.sort(
           (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
@@ -22,7 +22,9 @@ const PostPage = ({ onChange }) => {
           (a, b) => new Date(a.creationDate) - new Date(b.creationDate)
         );
       default:
-        return posts;
+        return posts.sort(
+          (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
+        );
     }
   };
   const {

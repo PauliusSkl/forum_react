@@ -17,7 +17,7 @@
 }
 
 .sidenav_logo > img {
-  width: 60%;
+  max-width: 60%;
   margin: 10px 0;
 }
 
@@ -158,5 +158,8 @@
 }
 
 .sidenav_subreddit a.highlighted {
+  color: #fd4500;
+}
+.sidenav_menu a.highlighted {
   color: #fd4500;
 }
