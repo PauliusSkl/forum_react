@@ -4,9 +4,10 @@ import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const EditTopic = ({ open, onClose, id }) => {
+const EditTopic = ({ open, onClose, body, id }) => {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -17,22 +18,27 @@ const EditTopic = ({ open, onClose, id }) => {
         position: "top-center",
         autoClose: 1500,
         theme: "light",
+        toastId: "updatedTopic",
       });
     }
-
-    const url = new URL(window.location);
-    url.searchParams.delete("updated");
-    window.history.pushState({}, "", url);
   }, []);
 
   const handleTopicUpdate = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    if (description === "") {
+      setError("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
+
+    if (description === body) {
+      setError("You need to change the topic to update!");
+      setIsLoading(false);
+      return;
+    }
     const accessToken = localStorage.getItem("accessToken");
     try {
-      if (description === "") {
-        setError("Please fill in all fields");
-        return;
-      }
       const response = await fetch(
         "https://walrus-app-2r2tj.ondigitalocean.app/api/topics/" + id,
         {
@@ -77,15 +83,18 @@ const EditTopic = ({ open, onClose, id }) => {
       onClose();
     } catch (error) {
       setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     if (!open) {
-      setDescription("");
+      setDescription(body);
       setError(null);
+      setIsLoading(false);
     }
-  }, [open]);
+  }, [open, body]);
 
   if (!open) return null;
 
@@ -106,7 +115,15 @@ const EditTopic = ({ open, onClose, id }) => {
             />
           </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit">Update Topic</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                Updating <span className="spinner" />
+              </>
+            ) : (
+              "Update Topic"
+            )}
+          </button>
         </form>
       </div>
     </>,

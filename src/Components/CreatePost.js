@@ -8,6 +8,7 @@ const CreatePost = ({ open, onClose, id }) => {
   const [name, setName] = useState("");
   const [body, setBody] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -18,18 +19,17 @@ const CreatePost = ({ open, onClose, id }) => {
         position: "top-center",
         autoClose: 1500,
         theme: "light",
+        toastId: "createdPost",
       });
-
-      const url = new URL(window.location);
-      url.searchParams.delete("created");
-      window.history.pushState({}, "", url);
     }
   }, []);
 
   const handlePostCreate = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     if (name === "" || body === "") {
       setError("Please fill in all fields");
+      setIsLoading(false);
       return;
     }
     const accessToken = localStorage.getItem("accessToken");
@@ -72,6 +72,8 @@ const CreatePost = ({ open, onClose, id }) => {
       onClose();
     } catch (error) {
       setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -80,6 +82,7 @@ const CreatePost = ({ open, onClose, id }) => {
       setName("");
       setBody("");
       setError(null);
+      setIsLoading(false);
     }
   }, [open]);
 
@@ -111,7 +114,15 @@ const CreatePost = ({ open, onClose, id }) => {
             />
           </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit">Create Post</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                Creating post <span className="spinner" />
+              </>
+            ) : (
+              "Create Post"
+            )}
+          </button>
         </form>
       </div>
     </>,

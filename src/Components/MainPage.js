@@ -17,9 +17,6 @@ const MainPage = ({ onChange }) => {
         theme: "light",
       });
     }
-    const url = new URL(window.location);
-    url.searchParams.delete("deleted");
-    window.history.pushState({}, "", url);
   }, []);
   return (
     <>

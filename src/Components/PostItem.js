@@ -11,7 +11,6 @@ const PostItem = (props) => {
   const idTopic = props.topic.id;
   const nameTopic = props.topic.name;
   const { id, name, creationDate } = props.post;
-
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const deleted = urlParams.get("deleted");
@@ -21,12 +20,9 @@ const PostItem = (props) => {
         position: "top-center",
         autoClose: 1500,
         theme: "light",
+        toastId: "deletedPost",
       });
     }
-
-    const url = new URL(window.location);
-    url.searchParams.delete("deleted");
-    window.history.pushState({}, "", url);
   }, []);
 
   const calculateTimeDifference = (creationDate) => {
@@ -141,6 +137,7 @@ const PostItem = (props) => {
         onClose={() => {
           setIsOpened(false);
         }}
+        body={props.post.body}
         id={idTopic}
         idP={id}
       />

@@ -3,34 +3,26 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const EditComment = ({ open, onClose, id, idP, idC, onChange }) => {
+const EditComment = ({ open, onClose, body, id, idP, idC, onChange }) => {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const updated = urlParams.get("updated");
-
-    if (updated === "true") {
-      toast.success("Topic updated!", {
-        position: "top-center",
-        autoClose: 1500,
-        theme: "light",
-      });
-    }
-
-    const url = new URL(window.location);
-    url.searchParams.delete("updated");
-    window.history.pushState({}, "", url);
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCommentEdit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    if (description === "") {
+      setError("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
+    if (description === body) {
+      setError("You need to change the comment to update!");
+      setIsLoading(false);
+      return;
+    }
     const accessToken = localStorage.getItem("accessToken");
     try {
-      if (description === "") {
-        setError("Please fill in all fields");
-        return;
-      }
       const response = await fetch(
         "https://walrus-app-2r2tj.ondigitalocean.app/api/topics/" +
           id +
@@ -84,15 +76,18 @@ const EditComment = ({ open, onClose, id, idP, idC, onChange }) => {
       onClose();
     } catch (error) {
       setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     if (!open) {
-      setDescription("");
+      setDescription(body);
       setError(null);
+      setIsLoading(false);
     }
-  }, [open]);
+  }, [open, body]);
 
   if (!open) return null;
 
@@ -113,7 +108,15 @@ const EditComment = ({ open, onClose, id, idP, idC, onChange }) => {
             />
           </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit">Update Comment</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                Updating <span className="spinner" />
+              </>
+            ) : (
+              "Update Comment"
+            )}
+          </button>
         </form>
       </div>
     </>,

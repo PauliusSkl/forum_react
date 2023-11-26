@@ -6,8 +6,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const CreateComment = ({ topicId, postId, onChange }) => {
   const [commentContent, setCommentContent] = useState("");
-
-  const handleCommentSubmit = async () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
     try {
       if (commentContent === "") {
         toast.error("Comment cannot be empty", {
@@ -50,6 +52,8 @@ const CreateComment = ({ topicId, postId, onChange }) => {
       }
     } catch (error) {
       console.error("Error posting comment", error);
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -67,8 +71,12 @@ const CreateComment = ({ topicId, postId, onChange }) => {
           />
         </div>
         <div className="comment_button">
-          <button onClick={handleCommentSubmit}>
-            <i className="fa fa-arrow-right"></i>
+          <button onClick={handleCommentSubmit} disabled={isLoading}>
+            {isLoading ? (
+              <i className="fas fa-spinner fa-spin"></i>
+            ) : (
+              <i className="fa fa-arrow-right"></i>
+            )}
           </button>
         </div>
       </div>

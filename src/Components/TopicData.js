@@ -86,6 +86,7 @@ const TopicData = ({ topicId, description }) => {
         onClose={() => {
           setIsOpenEdit(false);
         }}
+        body={description}
         id={topicId}
       />
       <ToastContainer />

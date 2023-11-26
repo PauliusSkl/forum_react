@@ -7,10 +7,11 @@ const Login = ({ open, onClose }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const response = await fetch(
         "https://walrus-app-2r2tj.ondigitalocean.app/api/login",
@@ -47,6 +48,8 @@ const Login = ({ open, onClose }) => {
       });
     } catch (error) {
       setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -55,6 +58,7 @@ const Login = ({ open, onClose }) => {
       setUsername("");
       setPassword("");
       setError(null);
+      setIsLoading(false);
     }
   }, [open]);
 
@@ -86,7 +90,15 @@ const Login = ({ open, onClose }) => {
             />
           </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit">Login</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                Logging in <span className="spinner" />
+              </>
+            ) : (
+              "Login"
+            )}
+          </button>
         </form>
       </div>
     </>,

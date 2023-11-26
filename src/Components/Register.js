@@ -9,10 +9,10 @@ const Register = ({ open, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleRegister = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const response = await fetch(
         "https://walrus-app-2r2tj.ondigitalocean.app/api/register",
@@ -64,6 +64,8 @@ const Register = ({ open, onClose }) => {
           }
         );
       }
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -72,6 +74,7 @@ const Register = ({ open, onClose }) => {
       setEmail("");
       setPassword("");
       setError(null);
+      setIsLoading(false);
     }
   }, [open]);
 
@@ -112,7 +115,15 @@ const Register = ({ open, onClose }) => {
             />
           </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit">Register</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                Registering <span className="spinner" />
+              </>
+            ) : (
+              "Register"
+            )}
+          </button>
         </form>
       </div>
     </>,

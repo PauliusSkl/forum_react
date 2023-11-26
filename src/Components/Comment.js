@@ -132,6 +132,7 @@ const Comment = ({ topicId, postId, comment, onChange }) => {
         onChange={onChange}
         id={topicId}
         idP={postId}
+        body={comment.content}
       />
     </>
   );

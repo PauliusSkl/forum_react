@@ -89,3 +89,35 @@
 textarea {
   height: 70px;
 }
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.login-modal button:disabled {
+  background-color: #ccc; /* Change the color to grey */
+  cursor: not-allowed; /* Show not-allowed cursor when disabled */
+  opacity: 0.8; /* Adjust opacity to visually indicate it's disabled */
+  position: relative;
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Align items horizontally */
+}
+
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #333;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: rotate 1s linear infinite;
+  margin-left: 8px; /* Adjust margin to control the distance between text and spinner */
+}
+
+.login-modal button:disabled .spinner {
+  border-top-color: white; /* Adjust color to match your button's text color */
+}

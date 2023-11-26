@@ -1,13 +1,22 @@
 import "../Styles/Login.css";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const CreateTopic = ({ open, onClose, onChange }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleTopicCreate = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    if (name === "" || description === "") {
+      setError("Please fill in all fields");
+      setIsLoading(false);
+      return;
+    }
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await fetch(
@@ -25,14 +34,32 @@ const CreateTopic = ({ open, onClose, onChange }) => {
         }
       );
 
+      if (response.status === 401) {
+        toast.error("You need to login to create a topic!", {
+          position: "top-center",
+          autoClose: 2000,
+          theme: "light",
+        });
+        return;
+      }
       if (!response.ok) {
         const errorData = await response.text();
-        setError(errorData);
+        throw new Error(errorData);
       }
-      onChange();
+      if (response.ok) {
+        toast.success("Topic created!", {
+          position: "top-center",
+          autoClose: 1500,
+          theme: "light",
+        });
+        onChange();
+      }
+
       onClose();
     } catch (error) {
-      setError(error.message);
+      setError("Error creating topic");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -41,6 +68,7 @@ const CreateTopic = ({ open, onClose, onChange }) => {
       setName("");
       setDescription("");
       setError(null);
+      setIsLoading(false);
     }
   }, [open]);
 
@@ -72,7 +100,15 @@ const CreateTopic = ({ open, onClose, onChange }) => {
             />
           </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit">Create Topic</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                Creating Topic <span className="spinner" />
+              </>
+            ) : (
+              "Create Topic"
+            )}
+          </button>
         </form>
       </div>
     </>,
