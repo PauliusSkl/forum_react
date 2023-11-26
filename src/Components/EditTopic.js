@@ -2,14 +2,37 @@ import "../Styles/Login.css";
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const EditTopic = ({ open, onClose, id }) => {
   const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const updated = urlParams.get("updated");
+
+    if (updated === "true") {
+      toast.success("Topic updated!", {
+        position: "top-center",
+        autoClose: 1500,
+        theme: "light",
+      });
+    }
+
+    const url = new URL(window.location);
+    url.searchParams.delete("updated");
+    window.history.pushState({}, "", url);
+  }, []);
+
   const handleTopicUpdate = async (e) => {
     e.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
     try {
+      if (description === "") {
+        setError("Please fill in all fields");
+        return;
+      }
       const response = await fetch(
         "https://walrus-app-2r2tj.ondigitalocean.app/api/topics/" + id,
         {
@@ -24,12 +47,34 @@ const EditTopic = ({ open, onClose, id }) => {
         }
       );
 
+      if (response.status === 401) {
+        toast.error("You need to login to update!", {
+          position: "top-center",
+          autoClose: 2000,
+          theme: "light",
+        });
+        return;
+      }
+
+      if (response.status === 403) {
+        toast.error("You are not allowed to update!", {
+          position: "top-center",
+          autoClose: 2000,
+          theme: "light",
+        });
+        return;
+      }
       if (!response.ok) {
         const errorData = await response.text();
         setError(errorData);
       }
+
+      if (response.ok) {
+        navigate("/topics/" + id + "?updated=true");
+        navigate(0);
+      }
+
       onClose();
-      navigate(0);
     } catch (error) {
       setError(error.message);
     }

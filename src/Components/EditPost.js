@@ -4,55 +4,63 @@ import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const CreatePost = ({ open, onClose, id }) => {
-  const [name, setName] = useState("");
-  const [body, setBody] = useState("");
+const EditPost = ({ open, onClose, id, idP }) => {
+  const [description, setDescription] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const created = urlParams.get("created");
+    const updated = urlParams.get("updatedPost");
 
-    if (created === "true") {
-      toast.success("Post created!", {
+    if (updated === "true") {
+      toast.success("Post updated!", {
         position: "top-center",
         autoClose: 1500,
         theme: "light",
       });
-
-      const url = new URL(window.location);
-      url.searchParams.delete("created");
-      window.history.pushState({}, "", url);
     }
+
+    const url = new URL(window.location);
+    url.searchParams.delete("updatedPost");
+    window.history.pushState({}, "", url);
   }, []);
 
-  const handlePostCreate = async (e) => {
+  const handleTopicUpdate = async (e) => {
     e.preventDefault();
-    if (name === "" || body === "") {
-      setError("Please fill in all fields");
-      return;
-    }
     const accessToken = localStorage.getItem("accessToken");
     try {
+      if (description === "") {
+        setError("Please fill in all fields");
+        return;
+      }
       const response = await fetch(
         "https://walrus-app-2r2tj.ondigitalocean.app/api/topics/" +
           id +
-          "/posts",
+          "/posts/" +
+          idP,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            Name: name,
-            Body: body,
+            body: description,
           }),
         }
       );
 
       if (response.status === 401) {
-        toast.error("You need to login to post!", {
+        toast.error("You need to login to update!", {
+          position: "top-center",
+          autoClose: 2000,
+          theme: "light",
+        });
+        return;
+      }
+
+      if (response.status === 403) {
+        toast.error("You are not allowed to update!", {
           position: "top-center",
           autoClose: 2000,
           theme: "light",
@@ -65,20 +73,19 @@ const CreatePost = ({ open, onClose, id }) => {
       }
 
       if (response.ok) {
-        navigate("/topics/" + id + "?created=true");
+        navigate("/topics/" + id + "?updatedPost=true");
         navigate(0);
       }
 
       onClose();
     } catch (error) {
-      setError(error.message);
+      setError("Something went wrong, try again later");
     }
   };
 
   useEffect(() => {
     if (!open) {
-      setName("");
-      setBody("");
+      setDescription("");
       setError(null);
     }
   }, [open]);
@@ -90,28 +97,19 @@ const CreatePost = ({ open, onClose, id }) => {
       <div className="overlay"></div>
       <div className="login-modal">
         <i className="fa fa-times close-button" onClick={onClose}></i>
-        <h2>Create New Post</h2>
-        <form onSubmit={handlePostCreate}>
+        <h2>Update Post</h2>
+        <form onSubmit={handleTopicUpdate}>
           <div className="input-group">
-            <label>Post name:</label>
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="input-group">
-            <label>Post Body:</label>
+            <label>Description:</label>
             <textarea
               type="text"
               name="description"
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           {error && <div className="error-message">{error}</div>}
-          <button type="submit">Create Post</button>
+          <button type="submit">Update Post</button>
         </form>
       </div>
     </>,
@@ -119,4 +117,4 @@ const CreatePost = ({ open, onClose, id }) => {
   );
 };
 
-export default CreatePost;
+export default EditPost;

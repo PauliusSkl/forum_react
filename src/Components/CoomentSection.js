@@ -32,7 +32,13 @@ const CommentSection = ({ topicId, onChange, postId }) => {
               onChange={onChange}
             />
             {sortedComments.map((comment) => (
-              <Comment key={comment.id} comment={comment} />
+              <Comment
+                key={comment.id}
+                comment={comment}
+                topicId={topicId}
+                postId={postId}
+                onChange={onChange}
+              />
             ))}
           </div>
         </>

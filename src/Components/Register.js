@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import "../Styles/Login.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = ({ open, onClose }) => {
   const [username, setUsername] = useState("");
@@ -31,10 +33,37 @@ const Register = ({ open, onClose }) => {
         const errorData = await response.text();
         throw new Error(errorData);
       }
-      console.log("Registration successful");
       onClose();
+      toast.success("Registration successful! You can login now", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
-      setError(error.message);
+      if (error.message === "User already exists") {
+        setError(error.message);
+        return;
+      } else {
+        setError("Invalid password");
+        toast.error(
+          "Password must be at least 8 characters long and contain at least one number, one lowercase letter, one uppercase letter, and one special character",
+          {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
+      }
     }
   };
   useEffect(() => {

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "../Styles/Login.css";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = ({ open, onClose }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -34,6 +35,16 @@ const Login = ({ open, onClose }) => {
 
       localStorage.setItem("accessToken", data.accessToken);
       onClose();
+      toast.success("Login successful!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       setError(error.message);
     }

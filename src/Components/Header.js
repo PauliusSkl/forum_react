@@ -4,7 +4,8 @@ import avatar from "../images/avatar.jpg";
 import "../Styles/Header.css";
 import { useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Header = ({ openLogin, openRegister, openCreateTopic }) => {
   const location = useLocation();
   const accessToken = localStorage.getItem("accessToken");
@@ -50,6 +51,11 @@ const Header = ({ openLogin, openRegister, openCreateTopic }) => {
     localStorage.removeItem("accessToken");
     setUser(null);
     setIsDropdownOpen(false);
+    toast.success("You have been signed out!", {
+      position: "top-center",
+      autoClose: 1500,
+      theme: "light",
+    });
   };
 
   const handleDropdownClick = (e) => {

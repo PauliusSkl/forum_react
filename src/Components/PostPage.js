@@ -52,7 +52,7 @@ const PostPage = ({ onChange }) => {
         </div>
       ) : (
         <>
-          {topic.resource ? ( // Check if topic.resource is defined
+          {topic.resource ? (
             <>
               <TopicData
                 description={topic.resource.description}

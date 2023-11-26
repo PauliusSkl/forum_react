@@ -15,10 +15,6 @@ const PostData = ({ name, body, topicName, topicId, postedTime }) => {
       </div>
       <h1>{name}</h1>
       <p>{body}</p>
-      <div className="iconContainer">
-        <i className="fas fa-save"></i>
-        <i className="fas fa-trash"></i>
-      </div>
     </div>
   );
 };
