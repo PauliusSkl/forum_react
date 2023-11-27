@@ -1,5 +1,5 @@
 import "../Styles/SideNav.css";
-import redditLogo from "../images/Reddit-Logo.png";
+import redditLogo from "../images/logo.png";
 import useFetch from "../Hooks/useFetch";
 import { Link } from "react-router-dom";
 import { useState } from "react";

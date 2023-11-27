@@ -17,13 +17,13 @@
 }
 
 .sidenav_logo > img {
-  max-width: 60%;
+  max-width: 100%;
   margin: 10px 0;
 }
 
 .sidenav_search {
   position: relative;
-  margin: 2em 0;
+  margin: 1.5em 0;
 }
 
 .sidenav_search > input {
@@ -126,7 +126,7 @@
   }
 
   .sidenav_logo > img {
-    width: 40%;
+    width: 60%;
   }
 
   .sidenav_subreddit {
