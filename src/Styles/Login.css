@@ -62,7 +62,7 @@
 
 .login-modal button {
   background-color: #fd4500;
-  color: white;
+  color: #ffffff;
   padding: 10px;
   border: none;
   border-radius: 4px;
@@ -99,13 +99,13 @@ textarea {
 }
 
 .login-modal button:disabled {
-  background-color: #ccc; /* Change the color to grey */
-  cursor: not-allowed; /* Show not-allowed cursor when disabled */
-  opacity: 0.8; /* Adjust opacity to visually indicate it's disabled */
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.8;
   position: relative;
   display: flex;
-  align-items: center; /* Align items vertically */
-  justify-content: center; /* Align items horizontally */
+  align-items: center;
+  justify-content: center;
 }
 
 .spinner {
@@ -115,9 +115,9 @@ textarea {
   width: 20px;
   height: 20px;
   animation: rotate 1s linear infinite;
-  margin-left: 8px; /* Adjust margin to control the distance between text and spinner */
+  margin-left: 8px;
 }
 
 .login-modal button:disabled .spinner {
-  border-top-color: white; /* Adjust color to match your button's text color */
+  border-top-color: #fff;
 }

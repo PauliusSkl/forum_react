@@ -65,18 +65,6 @@ html {
   width: calc(100% - 135px);
 }
 
-/* .input_comment input[type="text"] {
-  width: 100%;
-  font-weight: 300;
-  font-size: 1.3rem;
-  padding: 10px;
-  border: none;
-} */
-
-/* .input_comment input[type="text"]:focus {
-  outline: none;
-} */
-
 .new_comment {
   width: 65%;
   justify-content: center;
@@ -100,7 +88,7 @@ html {
   padding: 5px 10px;
   padding-top: 20px;
   font-size: 0.9rem;
-  color: #555;
+  color: #808080;
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 100%;
